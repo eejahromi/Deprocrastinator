@@ -8,7 +8,12 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <UITableViewDataSource ,UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *inputTextField;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) NSMutableArray *inputArray;
 
 @end
 
@@ -16,12 +21,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.inputArray = [[NSMutableArray alloc]init];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.inputArray.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    cell.textLabel.text = [self.inputArray objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
+
+
+- (IBAction)onAddButtonPressed:(UIButton *)sender {
+    
+    //cell.textLabel.text = self.inputTextField.text;
+    [self.inputArray addObject:self.inputTextField.text];
+    [self.tableView reloadData];
+}
+
+
+
+
+
+
+
 
 @end
