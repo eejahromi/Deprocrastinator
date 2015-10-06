@@ -15,6 +15,9 @@
 
 @property (strong, nonatomic) NSMutableArray *inputArray;
 @property (strong, nonatomic) NSMutableArray *priorityArray;
+
+@property (strong, nonatomic) NSMutableArray *colorArray;
+
 @property BOOL isEditingNow;
 @end
 
@@ -26,7 +29,9 @@
     self.inputArray = [[NSMutableArray alloc]init];
     
     self.priorityArray = [[NSMutableArray alloc]init];
-    //self.priorityArray = @[].mutableCopy;
+    
+    self.colorArray = [[NSMutableArray alloc]init];
+    self.colorArray = @[[UIColor redColor],[UIColor yellowColor],[UIColor greenColor],[UIColor blackColor]].mutableCopy;
     
 }
 
@@ -54,6 +59,7 @@
     cell.textLabel.textColor = [UIColor greenColor];
 }
 
+
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -61,6 +67,16 @@
         [self.tableView reloadData];
     }
     
+}
+
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    NSString *movingString = [self.inputArray objectAtIndex:sourceIndexPath.row];
+    [self.inputArray removeObjectAtIndex:sourceIndexPath.row];
+    [self.inputArray insertObject:movingString atIndex:destinationIndexPath.row];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -91,35 +107,36 @@
 }
 
 - (IBAction)swipeDetected:(UISwipeGestureRecognizer *)sender {
-    CGPoint location = [sender locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    CGPoint location = [sender locationInView:self.tableView];
+//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     if (UISwipeGestureRecognizerDirectionRight) {
-        int count = [[self.priorityArray objectAtIndex:indexPath.row]intValue];
-        
-        if (count == 0) {
-            count++;
-            
-        }else if(count <= 3){
-            count--;
-        }
-        
-        switch (count) {
-            case 0:
-                cell.textLabel.textColor = [UIColor blackColor];
-                break;
-            case 1:
-                cell.textLabel.textColor = [UIColor greenColor];
-            case 2:
-                cell.textLabel.textColor = [UIColor yellowColor];
-            case 3:
-                cell.textLabel.textColor = [UIColor redColor];
-            default:
-                break;
-        }
+//        int count = [[self.priorityArray objectAtIndex:indexPath.row]intValue];
         
         
-        [self.priorityArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:count]];
+//        if (count == 0) {
+//            count++;
+//            
+//        }else if(count <= 3){
+//            count--;
+//        }
+//        
+//        switch (count) {
+//            case 0:
+//                cell.textLabel.textColor = [UIColor blackColor];
+//                break;
+//            case 1:
+//                cell.textLabel.textColor = [UIColor greenColor];
+//            case 2:
+//                cell.textLabel.textColor = [UIColor yellowColor];
+//            case 3:
+//                cell.textLabel.textColor = [UIColor redColor];
+//            default:
+//                break;
+//        }
+//        
+//        
+//        [self.priorityArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:count]];
     }
 }
 

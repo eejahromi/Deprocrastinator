@@ -29,7 +29,7 @@
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
                                         <connections>
-                                            <outletCollection property="gestureRecognizers" destination="e6d-uB-l9B" appends="YES" id="qPH-cl-vIo"/>
+                                            <outletCollection property="gestureRecognizers" destination="rSN-2C-HFf" appends="YES" id="jJT-JZ-9dS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -39,14 +39,14 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ktt-MC-N5X">
-                                <rect key="frame" x="270" y="64" width="30" height="30"/>
+                                <rect key="frame" x="278" y="72" width="30" height="30"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="onAddButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eJ3-yn-DdD"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3hS-oT-cQq">
-                                <rect key="frame" x="0.0" y="64" width="263" height="30"/>
+                                <rect key="frame" x="7" y="72" width="263" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -67,9 +67,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="e6d-uB-l9B">
+                <swipeGestureRecognizer direction="right" id="rSN-2C-HFf">
                     <connections>
-                        <action selector="swipeDetected:" destination="BYZ-38-t0r" id="eN5-KJ-LLd"/>
+                        <action selector="swipeDetected:" destination="BYZ-38-t0r" id="dTB-NZ-PJD"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
