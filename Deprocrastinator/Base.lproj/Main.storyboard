@@ -55,7 +55,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fK8-05-d5Y">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="G2p-Rk-c4S">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="G2p-Rk-c4S">
                             <connections>
                                 <action selector="EditButtonPressed:" destination="BYZ-38-t0r" id="oSd-4U-LMO"/>
                             </connections>

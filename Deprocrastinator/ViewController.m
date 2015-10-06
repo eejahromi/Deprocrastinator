@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) NSMutableArray *inputArray;
 @property (strong, nonatomic) NSMutableArray *priorityArray;
+@property BOOL isEditingNow;
 @end
 
 @implementation ViewController
@@ -58,8 +59,6 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.inputArray removeObjectAtIndex:indexPath.row];
         [self.tableView reloadData];
-    }else if(editingStyle == UITableViewCellEditingStyleInsert){
-        
     }
     
 }
@@ -80,21 +79,15 @@
 - (IBAction)EditButtonPressed:(UIBarButtonItem *)sender {
     //UIBarButtonItem *editButton = (UIBarButtonItem *)sender;
 
-    if (self.editing) {
-        [sender setTitle:@"Edit"];
-        [self.tableView setEditing:NO animated:YES];
-        self.editing = NO;
-        sender.style = UIBarButtonItemStylePlain;
-        
-    }else{
-        [sender setTitle:@"Done"];
-        self.editing = YES;
+    if ([sender.title isEqual:@"Edit"]) {
+        sender.title = @"Done";
         [self.tableView setEditing:YES animated:YES];
-        sender.style = UIBarButtonItemStyleDone;
-        
+        self.isEditingNow = YES;
+    }else{
+        sender.title = @"Edit";
+        [self.tableView setEditing:NO animated:YES];
+        self.isEditingNow = NO;
     }
-    
-    [self.tableView reloadData];
 }
 
 - (IBAction)swipeDetected:(UISwipeGestureRecognizer *)sender {
