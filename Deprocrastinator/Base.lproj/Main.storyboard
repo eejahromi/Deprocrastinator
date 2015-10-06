@@ -28,6 +28,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="e6d-uB-l9B" appends="YES" id="qPH-cl-vIo"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -52,6 +55,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="fK8-05-d5Y">
                         <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="G2p-Rk-c4S">
+                            <connections>
+                                <action selector="EditButtonPressed:" destination="BYZ-38-t0r" id="oSd-4U-LMO"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="inputTextField" destination="3hS-oT-cQq" id="NzW-lx-IyA"/>
@@ -59,6 +67,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="e6d-uB-l9B">
+                    <connections>
+                        <action selector="swipeDetected:" destination="BYZ-38-t0r" id="eN5-KJ-LLd"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="766" y="350"/>
         </scene>
