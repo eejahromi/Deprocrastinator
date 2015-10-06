@@ -63,8 +63,28 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.inputArray removeObjectAtIndex:indexPath.row];
-        [self.tableView reloadData];
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                            message:@"Are you sure you want to delete this item?"
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *deleteButton = [UIAlertAction actionWithTitle:@"Delete"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                           [self.inputArray removeObjectAtIndex:indexPath.row];
+                                                           [self.tableView reloadData];
+                                                       }];
+        
+        UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                           
+                                                       }];
+        [controller addAction:deleteButton];
+        [controller addAction:cancelButton];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+        
+        
     }
     
 }
