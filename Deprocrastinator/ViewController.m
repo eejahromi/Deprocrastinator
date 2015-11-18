@@ -8,13 +8,14 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <UITableViewDataSource ,UITableViewDelegate>
+@interface ViewController () <UITableViewDataSource ,UITableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *inputTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSMutableArray *inputArray;
 @property (strong, nonatomic) NSMutableArray *priorityArray;
+@property (strong, nonatomic) NSMutableArray *checkArray;
 
 @property (strong, nonatomic) NSArray *colorArray;
 
@@ -29,10 +30,12 @@
     self.inputArray = [[NSMutableArray alloc]init];
     
     self.priorityArray = [[NSMutableArray alloc]init];
+
+    self.checkArray = [[NSMutableArray alloc]init];
     
-    self.colorArray = [[NSMutableArray alloc]init];
+    //self.colorArray = [[NSMutableArray alloc]init];
     self.colorArray = [[NSArray alloc] initWithObjects:[UIColor blackColor],[UIColor greenColor],[UIColor yellowColor],[UIColor redColor], nil];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,8 +50,21 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
+
+    UISwipeGestureRecognizer *swipeRightRecognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeDetected:)];
+        [swipeRightRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+        [cell addGestureRecognizer:swipeRightRecognizer];
+
     cell.textLabel.text = [self.inputArray objectAtIndex:indexPath.row];
+    int count = [[self.priorityArray objectAtIndex:indexPath.row]intValue];
+    cell.textLabel.textColor = self.colorArray[count];
+
+    if (![self.checkArray objectAtIndex:indexPath.row]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else{
+        cell.accessoryType =UITableViewCellAccessoryNone;
+    }
+
     
     return cell;
 }
@@ -56,7 +72,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [self.priorityArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:1]];
-    cell.textLabel.textColor = [UIColor greenColor];
+   // cell.textLabel.textColor = [UIColor greenColor];
+
+    if (![self.checkArray objectAtIndex:indexPath.row]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [self.checkArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithBool:YES]];
+    } else{
+        cell.accessoryType =UITableViewCellAccessoryNone;
+        [self.checkArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithBool:NO]];
+    }
+
 }
 
 
@@ -103,7 +128,7 @@
     [self.inputArray insertObject:movingString atIndex:destinationIndexPath.row];
 
     // re-order corresponding priorities
-    [self.priorityArray removeObject:priorityItem];
+    [self.priorityArray removeObjectAtIndex:sourceIndexPath.row];
     [self.priorityArray insertObject:priorityItem atIndex:destinationIndexPath.row];
     [self.tableView reloadData];
 
@@ -119,6 +144,7 @@
     
     [self.inputArray addObject:self.inputTextField.text];
     [self.priorityArray addObject:[NSNumber numberWithInt:0]];
+    [self.checkArray addObject:[NSNumber numberWithBool:NO]];
     [self.tableView reloadData];
 }
 
@@ -137,14 +163,18 @@
     }
 }
 
-- (IBAction)swipeDetected:(UISwipeGestureRecognizer *)sender {
-    CGPoint location = [sender locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+- (void)swipeDetected:(UISwipeGestureRecognizer *)sender {
 
-    if (UISwipeGestureRecognizerDirectionRight) {
-        int count = [[self.priorityArray objectAtIndex:indexPath.row]intValue];
-NSLog(@"Priority %i",count);
+        if (sender.state == UIGestureRecognizerStateEnded) {
+            CGPoint point = [sender locationInView:self.tableView];
+            NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+            UITableViewCell *swipeRigntCell = [self.tableView cellForRowAtIndexPath:indexPath];
+            NSLog(@"Swipe detected");
+
+
+            int count = [[self.priorityArray objectAtIndex:indexPath.row]intValue];
+
+            NSLog(@"Priority %i",count);
 
         if((count >= 0) && (count < 3)){
             count++;
@@ -155,14 +185,14 @@ NSLog(@"Priority %i",count);
         NSLog(@"Priority %i",count);
 
 
-        cell.textLabel.textColor = self.colorArray[count];
+        swipeRigntCell.textLabel.textColor = self.colorArray[count];
         
         [self.priorityArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:count]];
-    }
+
+        }
+
+    [self.tableView reloadData];
 }
-
-
-
 
 
 @end
