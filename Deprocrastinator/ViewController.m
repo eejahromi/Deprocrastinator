@@ -16,7 +16,7 @@
 @property (strong, nonatomic) NSMutableArray *inputArray;
 @property (strong, nonatomic) NSMutableArray *priorityArray;
 
-@property (strong, nonatomic) NSMutableArray *colorArray;
+@property (strong, nonatomic) NSMutableDictionary *priorityDictionary;
 
 @property BOOL isEditingNow;
 @end
@@ -28,11 +28,10 @@
     
     self.inputArray = [[NSMutableArray alloc]init];
     
-    self.priorityArray = [[NSMutableArray alloc]init];
+    //self.priorityArray = [[NSMutableArray alloc]init];
     
-    self.colorArray = [[NSMutableArray alloc]init];
-    self.colorArray = @[[UIColor redColor],[UIColor yellowColor],[UIColor greenColor],[UIColor blackColor]].mutableCopy;
-    
+    self.priorityDictionary = [[NSMutableDictionary alloc]init];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,7 +106,8 @@
 - (IBAction)onAddButtonPressed:(UIButton *)sender {
     
     [self.inputArray addObject:self.inputTextField.text];
-    [self.priorityArray addObject:[NSNumber numberWithInt:0]];
+//    [self.priorityArray addObject:[NSNumber numberWithInt:0]];
+    [self.priorityDictionary setObject:@0 forKey:self.inputTextField.text];
     [self.tableView reloadData];
 }
 
@@ -127,11 +127,22 @@
 }
 
 - (IBAction)swipeDetected:(UISwipeGestureRecognizer *)sender {
-//    CGPoint location = [sender locationInView:self.tableView];
-//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-//    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    CGPoint location = [sender locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     if (UISwipeGestureRecognizerDirectionRight) {
-//        int count = [[self.priorityArray objectAtIndex:indexPath.row]intValue];
+        NSLog(@"%@",cell.textLabel.text);
+        NSLog(@"%@",[self.priorityDictionary objectForKey:cell.textLabel.text]);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
 //        if (count == 0) {
