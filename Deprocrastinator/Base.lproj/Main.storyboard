@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ouJ-H0-0ap">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ouJ-H0-0ap">
                                 <rect key="frame" x="0.0" y="34" width="320" height="534"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -24,7 +24,7 @@
                                         <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IMN-Fk-5RL" id="TVf-kD-ecv">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
@@ -35,20 +35,39 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="iFn-n6-zBY"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ktt-MC-N5X">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ktt-MC-N5X">
                                 <rect key="frame" x="278" y="72" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="EPv-sJ-GTL"/>
+                                    <constraint firstAttribute="height" constant="30" id="huv-2j-z9g"/>
+                                </constraints>
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="onAddButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eJ3-yn-DdD"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3hS-oT-cQq">
-                                <rect key="frame" x="7" y="72" width="263" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3hS-oT-cQq">
+                                <rect key="frame" x="12" y="72" width="258" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="bTh-M5-zuD"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ouJ-H0-0ap" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1Uy-WP-jBq"/>
+                            <constraint firstItem="3hS-oT-cQq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="3Ay-Aj-rGA"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ouJ-H0-0ap" secondAttribute="bottom" id="6gE-hD-noI"/>
+                            <constraint firstItem="Ktt-MC-N5X" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="7rY-Hy-NwB"/>
+                            <constraint firstAttribute="trailing" secondItem="Ktt-MC-N5X" secondAttribute="trailing" constant="12" id="Om3-3S-uGw"/>
+                            <constraint firstItem="3hS-oT-cQq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="12" id="T9F-cp-xtd"/>
+                            <constraint firstItem="ouJ-H0-0ap" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="34" id="alh-Ou-jml"/>
+                            <constraint firstItem="Ktt-MC-N5X" firstAttribute="leading" secondItem="3hS-oT-cQq" secondAttribute="trailing" constant="8" id="dat-rP-wOn"/>
+                            <constraint firstAttribute="trailing" secondItem="ouJ-H0-0ap" secondAttribute="trailing" id="gsy-Lp-s5A"/>
+                            <constraint firstItem="Ktt-MC-N5X" firstAttribute="leading" secondItem="3hS-oT-cQq" secondAttribute="trailing" constant="8" id="vNp-VY-yAH"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fK8-05-d5Y">
                         <nil key="title"/>

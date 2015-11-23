@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <UITableViewDataSource ,UITableViewDelegate, UIGestureRecognizerDelegate>
+@interface ViewController () <UITableViewDataSource ,UITableViewDelegate, UIGestureRecognizerDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *inputTextField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -32,15 +32,14 @@
     self.priorityArray = [[NSMutableArray alloc]init];
 
     self.checkArray = [[NSMutableArray alloc]init];
-    
-    //self.colorArray = [[NSMutableArray alloc]init];
+
     self.colorArray = [[NSArray alloc] initWithObjects:[UIColor blackColor],[UIColor greenColor],[UIColor yellowColor],[UIColor redColor], nil];
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 
@@ -72,7 +71,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [self.priorityArray replaceObjectAtIndex:indexPath.row withObject:[NSNumber numberWithInt:1]];
-   // cell.textLabel.textColor = [UIColor greenColor];
 
     if (![self.checkArray objectAtIndex:indexPath.row]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
